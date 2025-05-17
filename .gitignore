@@ -1,0 +1,16 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+
+# Editor files
+.vscode/
+*.log
+.DS_Store
+.idea/
+*.swp
+
+# Environment files
+.env
