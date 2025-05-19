@@ -1,27 +1,34 @@
+import { defineConfig } from 'eslint/config';
+import js from '@eslint/js';
 import globals from 'globals';
-import pluginJs from '@eslint/js';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import pluginPrettier from 'eslint-plugin-prettier';
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
-export default [
+export default defineConfig([
   {
+    files: ['**/*.{js,mjs,cjs}'],
+    ignores: ['dist/**'],
     languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.browser,
-      },
       sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
     },
     plugins: {
-      prettier: pluginPrettier,
+      prettier: eslintPluginPrettier,
     },
     rules: {
+      ...js.configs.recommended.rules,
       'prettier/prettier': 'error',
       'no-unused-vars': 'warn',
-      'no-console': 'off',
     },
   },
-  pluginJs.configs.recommended,
+  {
+    files: ['test/**/*.js'],
+    languageOptions: {
+      globals: globals.jest,
+    },
+  },
   eslintConfigPrettier,
-];
+]);
