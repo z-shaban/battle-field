@@ -74,3 +74,5 @@ Feel free to submit issues and pull requests!
 ## 📜 License
 
 This project is licensed under the MIT License.
+
+remeber to check the overlap in placeShip in your game board class

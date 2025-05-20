@@ -1,5 +1,6 @@
 import { Ship } from '../src/ship.js';
 import { GameBoard } from '../src/gameBoard.js';
+import { Player, Human, Computer } from '../src/player.js';
 
 describe('ship class', () => {
   let newShip;
@@ -90,5 +91,49 @@ describe('gameboard', () => {
     board.receiveAttack([0, 0]);
     board.receiveAttack([0, 1]);
     expect(board.allShipsSunk()).toBe(true);
+  });
+});
+
+describe('player', () => {
+  test('to have a board', () => {
+    const player = new Player();
+    expect(player).toHaveProperty('board');
+  });
+
+  test('human attacks computer', () => {
+    const human = new Human();
+    const computer = new Computer();
+    const ship = new Ship(2);
+    computer.board.placeShips(ship, [
+      [0, 0],
+      [0, 1],
+    ]);
+    human.attack(computer, [0, 1]);
+    expect(computer.board.ships[0].ship.hits).toBe(1);
+  });
+
+  test('computer attacks human', () => {
+    const human = new Human();
+    const computer = new Computer();
+    const ship = new Ship(2);
+    human.board.placeShips(ship, [
+      [0, 0],
+      [0, 1],
+    ]);
+    computer.getRandomTarget = jest.fn().mockReturnValue([0, 1]);
+    computer.attack(human);
+    expect(human.board.ships[0].ship.hits).toBe(1);
+  });
+
+  test('computer misses an attack human', () => {
+    const human = new Human();
+    const computer = new Computer();
+    const ship = new Ship(2);
+    human.board.placeShips(ship, [
+      [0, 0],
+      [0, 1],
+    ]);
+    computer.attack(human);
+    expect(human.board.missedAttacks.length).toBe(1);
   });
 });
