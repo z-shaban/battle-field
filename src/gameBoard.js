@@ -1,5 +1,3 @@
-import { Ship } from './ship';
-
 export class GameBoard {
   constructor() {
     this.ships = [];
