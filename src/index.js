@@ -1,8 +1,6 @@
-import './styles.css';
-import { Human } from './player';
-import { Computer } from './player';
-import { Ship } from './ship';
-import { renderBoard } from './dom';
+import { Human, Computer } from './player.js';
+import { Ship } from './ship.js';
+import { renderBoard } from './dom.js';
 
 const human = new Human();
 const theComputer = new Computer();
@@ -48,5 +46,5 @@ theComputer.board.placeShips(computerShip3, [
   [3, 3],
 ]);
 
-renderBoard(human.board, 'human-board');
+renderBoard(human.board, 'human-board', false);
 renderBoard(theComputer.board, 'computer-board', true);
