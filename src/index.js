@@ -1,8 +1,8 @@
 import './styles.css';
-import { GameBoard } from './gameBoard';
 import { Human } from './player';
 import { Computer } from './player';
 import { Ship } from './ship';
+import { renderBoard } from './dom';
 
 const human = new Human();
 const theComputer = new Computer();
@@ -47,3 +47,6 @@ theComputer.board.placeShips(computerShip3, [
   [3, 2],
   [3, 3],
 ]);
+
+renderBoard(human.board, 'human-board');
+renderBoard(theComputer.board, 'computer-board', true);
