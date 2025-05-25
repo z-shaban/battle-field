@@ -49,4 +49,21 @@ export function startGame() {
 
   renderBoard(human.board, 'human-board', false);
   renderBoard(theComputer.board, 'computer-board', true);
+
+  addComputerBoardListeners();
+
+  function addComputerBoardListeners() {
+    const computerCells = document.querySelectorAll('#computer-board .cell');
+    computerCells.forEach((cell) => {
+      cell.addEventListener('click', () => {
+        const row = Number(cell.dataset.row);
+        const col = Number(cell.dataset.col);
+        human.attack(theComputer, [row, col]);
+        theComputer.attack(human);
+        renderBoard(human.board, 'human-board', false);
+        renderBoard(theComputer.board, 'computer-board', true);
+        addComputerBoardListeners();
+      });
+    });
+  }
 }
